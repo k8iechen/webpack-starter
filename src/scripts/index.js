@@ -1,4 +1,5 @@
 import '../styles/index.scss';
+import { Dog } from './models/dog.js'; //Module
 
 console.log('Hello World~');
 
@@ -320,4 +321,56 @@ console.log(result); //bool; checks every value against condition
 //find
 let cfind = carID9.find(car => car.carID > 2);
 console.log(cfind); //{carID: 3, style: "blue"}
+
+//Classes & Modules
+//see dog.js module
+let dog = new Dog(5); //5
+dog.id = 7; //changes to 7
+console.log(dog.id); //Dog {}
+console.log(dog.identify('!')); //Dog ID: 7 !
+
+//Inheritance
+
+class Animal {
+    constructor() {
+        this.type = 'cat';
+    }
+    start() {
+        return `Starting: ${this.type}`;
+    }
+}
+class Cat extends Animal {
+    constructor() {
+        super();
+    }
+    meow() {
+        return 'in Cat meow ' + super.start();
+    }
+}
+let cat = new Cat();
+console.log(cat.type); //cat
+console.log(cat.meow()); //in Cat meow Starting: cat
+
+//BOM & DOM
+//window: https://developer.mozilla.org/en-US/docs/Web/API/Window
+//timers
+
+//once only
+let timeoutID = setTimeout(function () {
+    console.log('1 second passed.');
+}, 1000);
+//for cancelling
+clearTimeout(timeoutID);
+
+//repeated interval timer
+let intervalID = setInterval(function () {
+    console.log('3 second passed.');
+}, 3000);
+//for cancelling
+clearInterval(intervalID);
+
+//location Object: https://developer.mozilla.org/en-US/docs/Web/API/location
+console.log(location.href);
+
+//document Object (DOM): https://developer.mozilla.org/en-US/docs/Web/API/document
 
