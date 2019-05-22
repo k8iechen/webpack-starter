@@ -1,6 +1,7 @@
 import '../styles/index.scss';
 import { Dog } from './models/dog.js'; //Module
 import { setTimeout } from 'core-js';
+import $ from 'jquery';
 
 console.log('Hello World~');
 
@@ -353,6 +354,7 @@ console.log(cat.type); //cat
 console.log(cat.meow()); //in Cat meow Starting: cat
 
 //BOM & DOM
+//=====================================================================================================
 //window: https://developer.mozilla.org/en-US/docs/Web/API/Window
 //timers
 
@@ -385,7 +387,9 @@ el.classList.add('p2');
 el.style.color = 'black';
 console.log(el);
 
-//Errors: try & catch
+//Error Handling
+//=====================================================================================================
+//try & catch
 try {
     //let car = newCar; //error caught by catch block
     //let car = null; //no error, catch block doesn't run
@@ -417,3 +421,73 @@ promise.then(
 );
 
 //Data Access Using HTTP
+//=====================================================================================================
+
+//XHR
+let xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+    }
+};
+//use mockapi.io to generate random users
+xhttp.open("GET", "http:///5ce5abcdc1ee3600147266a7.mockapi.io/api/v1/users", true);
+xhttp.send();
+
+//jQuery
+//assigned to promise
+let p = $.get("http:///5ce5abcdc1ee3600147266a7.mockapi.io/api/v1/users");
+p.then(
+    data => console.log('success: ', data),
+    error => console.log('error: ', error)
+);
+
+//jQuery - POST
+let user = {
+    name: 'Katie Chen',
+    avatar: "k8iechen"
+};
+let p1 = $.post(
+    "http:///5ce5abcdc1ee3600147266a7.mockapi.io/api/v1/users", user
+);
+p1.then(
+    data => console.log('data: ', data),
+    error => console.log('error: ', error)
+);
+//data:
+//    { id: "10", createdAt: "grey", name: "Katie Chen", avatar: "k8iechen" }
+//    avatar: "k8iechen"
+//    createdAt: "grey"
+//    id: "10"
+//    name: "Katie Chen"
+//    __proto__: Object
+
+//Forms
+//======================================================================================================
+let form = document.getElementById('user-form');
+form.addEventListener('submit', event => {
+    let user = form.elements['user'];
+    let userError = document.getElementById('user-error');
+    let avatarFile = form.elements['avatar-file'];
+    //bypass form
+    let posting = {
+        user: user.value,
+        avatarFile: avatarFile.value
+    };
+    let p2 = $.post("http:///5ce5abcdc1ee3600147266a7.mockapi.io/api/v1/users", posting);
+    p2.then(
+        data => console.log('success: ', data),
+        error => console.log('error: ', error)
+    );
+    event.preventDefault();
+
+    //if (user.value.length < 5) {
+    //    userError.textContent = 'Invalid Entry';
+    //    userError.style.color = 'red';
+    //    user.style.borderColor = 'red';
+    //    user.focus();
+
+    //    event.preventDefault(); //prevents browser from posting
+    //}
+    console.log(user.value, avatarFile.value); //logs input
+});
