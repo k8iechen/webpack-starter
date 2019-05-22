@@ -1,5 +1,6 @@
 import '../styles/index.scss';
 import { Dog } from './models/dog.js'; //Module
+import { setTimeout } from 'core-js';
 
 console.log('Hello World~');
 
@@ -373,4 +374,46 @@ clearInterval(intervalID);
 console.log(location.href);
 
 //document Object (DOM): https://developer.mozilla.org/en-US/docs/Web/API/document
+let el = document.getElementById('first');
+let els = document.getElementsByClassName('p1');
+console.log(el);
+console.log(els[0]);
 
+el.textContent = 'new';
+el.setAttribute('foo', 'fooValue');
+el.classList.add('p2');
+el.style.color = 'black';
+console.log(el);
+
+//Errors: try & catch
+try {
+    //let car = newCar; //error caught by catch block
+    //let car = null; //no error, catch block doesn't run
+    throw new Error('custom error message string here');
+}
+catch (error) {
+    console.log('error: ', error);
+}
+finally {
+    console.log('finally block always executes');
+}
+
+//Promise: for asynchronous JS
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+let promise = new Promise(
+    function (resolve, reject) {
+        setTimeout(resolve, 100, 'givenValue');
+    }
+);
+console.log(promise);
+//Promise {<pending>}
+//        __proto__: Promise
+//        [[PromiseStatus]]: "resolved"
+//        [[PromiseValue]]: "givenValue"
+promise.then(
+    value => console.log('fulfilled: ' + value),
+    error => console.log('rejected: ' + error)
+);
+
+//Data Access Using HTTP
