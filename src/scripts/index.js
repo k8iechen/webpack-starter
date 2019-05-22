@@ -243,3 +243,81 @@ let tracker = function (ID, province = 'TO') {
 };
 console.log(tracker(123)); //Tracking 123 in TO.
 console.log(tracker(123, "BC")); //Tracking 123 in BC.
+
+//Objects & Arrays
+//=========================================================================
+
+//Constructor Functions
+function Car4(id4) {
+    this.carID4 = id4;
+    this.start = function () {
+        console.log('start: ' + this.carID4);
+    };
+}
+let vehicle1 = new Car4(123);
+vehicle1.start();
+
+//Prototype
+//saves lots of memory when large quantities of new instances are made
+function Car5(ID5) {
+    this.carID5 = ID5;
+}
+Car5.prototype.start = function () { //function created once only
+    console.log('start: ' + this.carID5);
+};
+let vehicle2 = new Car5(123);
+vehicle2.start(); 
+
+//JSON
+let car6 = {
+    id: 123,
+    style: 'bleh'
+};
+console.log(JSON.stringify(car6));
+//{"id":123,"style":"bleh"}
+
+//obj into JSON
+let carID7 = [
+    { carID: 123 },
+    { carID: 456 },
+    { carID: 789 },
+];
+console.log(JSON.stringify(carID7));
+//[{ "carID": 123 }, { "carID": 456 }, { "carID": 789 }]
+
+//parsing JSON input
+let jsonInput =
+`
+    [
+        { "carID": 123 },
+        { "carID": 456 },
+        { "carID": 789 }
+    ]
+`;
+let carID8 = JSON.parse(jsonInput);
+console.log(JSON.stringify(carID8));
+//[{"carID":123},{"carID":456},{"carID":789}]
+
+//Array Iteration
+let carID9 = [
+    { carID: 1, style: 'red' },
+    { carID: 2, style: 'white' },
+    { carID: 3, style: 'blue' }
+];
+carID9.forEach(car => console.log(car)); 
+//{ carID: 1, style: "red" }
+//{ carID: 2, style: "white" }
+//{ carID: 3, style: "blue" }
+carID9.forEach((car, index) => console.log(car, index));
+//{ carID: 1, style: "red" } 0
+//{ carID: 2, style: "white" } 1
+//{ carID: 3, style: "blue" } 2
+
+//every
+let result = carID9.every(car => car.carID > 0);
+console.log(result); //bool; checks every value against condition
+
+//find
+let cfind = carID9.find(car => car.carID > 2);
+console.log(cfind); //{carID: 3, style: "blue"}
+
